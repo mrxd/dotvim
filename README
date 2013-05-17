@@ -1,0 +1,16 @@
+Installation:
+
+    Linux: git clone git://github.com/mrxd/dotvim.git ~/.vim
+    Windows: git clone git://github.com/mrxd/dotvim.git %HOMEDRIVE%
+
+Linking
+
+    Create a new .vimrc (linux) or _vimrc (windows) in your home directory with the contents:
+
+    "Load the first file named 'vimrc' found in the runtimepath
+    runtime vimrc
+
+Switch to the `~/.vim` directory, and fetch submodules:
+
+    cd ~/.vim
+    git submodule update --init

@@ -1,0 +1,359 @@
+********************************************************************************
+Movement
+********************************************************************************
+0               - beginning of current line
+^               - first non blank character of current line
+$               - end of line
+-               - first character of previous line
++               - first character of next line
+w               - forward 1 word (beginning)
+W               - as above but ignoring punctuation
+e               - forward 1 word (end)
+E               - as above but ignoring punctuation
+b               - back 1 word (beginning)
+B               - as above but ignoring punctuation
+ge              - back 1 word (end)
+gg              - beginning of file
+ngg             - go to line n
+G               - end of file
+zt              - move current line to top of screen
+zz              - move current line to middle of screen
+zb              - move current line to bottom of screen
+H               - cursor to top of screen
+M               - cursor to middle of screen
+L               - cursor to bottom of screen
+n|              - column n of current line
+(               - beginning of current sentence
+)               - beginning of next sentence
+{               - beginning of current paragraph
+}               - beginning of next paragraph
+[[              - beginning of current section
+]]              - beginning of next section
+[{              - beginning of code block {
+]}              - end of code block }
+<C-f>           - forward one screen
+<C-b>           - back one screen
+<C-d>           - down half a screen
+<C-u>           - up half a screen
+<C-e>           - forward one line
+<C-y>           - back one line
+
+********************************************************************************
+Search
+********************************************************************************
+fx              - move forward to the first occurrence of x (current line)
+Fx              - same as above but backwards 
+tx              - same as 'f' but to the character just before x
+Tx              - same as above but backwards
+;               - repeat previous find in same direction
+,               - repeat previous find in opposite direction
+/pattern        - search pattern forward (whole file)
+?pattern        - search pattern backwards
+/\vpattern      - very magic regex pattern (see :h magic)
+n               - search matches forward
+N               - search matches backwards
+<C-l/o>         - go back to where you conducted the search from (/)
+*               - read the string under the cursor and go to the next occurrence
+#               - same as above but backwards
+%               - jump to matching {} () etc.
+g*              - like * but also where the word is part of another word
+g#              - like # but also where the word is part of another word
+gd              - go to declaration (variable)
+gf              - go to file (under cursor)
+:vimgrep /pat/g file1 file2 -search in multiple files
+
+********************************************************************************
+Marks
+********************************************************************************
+mx              - mark the current position with x=(a-z current file) (A-Z across files)
+'x              - move cursor to first character of line marked by x
+`x              - move cursor to the character marked by x
+`` or ''        - return to previous mark or context
+:marks          - shows what marks are currently set in the file
+:delmarks!      - delete all marks in the current buffer
+
+********************************************************************************
+Edits
+********************************************************************************
+S or cc         - replace the entire current line
+C               - replace from current position to end of line
+D               - delete current position to end of line
+I               - insert at the beginning of the line
+A               - append at the end of the line
+x               - delete char under cursor
+r               - replace char under cursor
+R               - overwrite replace
+J               - join the next line with this line
+gJ              - as above but remove the space
+c2w             - change 2 words
+c2iw            - change 2 words (inside - entire)
+c2aw            - change 2 words (around - entire)
+s               - delete char then insert mode
+dfx             - delete from current cursor to first occurrence of 'x'
+dtx             - same as above, but to the character just before 'x'
+ea              - end of word then append
+guiw            - change word to lower-case (can drop i if want from curr to $)
+gUiw            - change word to upper-case
+gUU             - change entire line to upper-case
+g~iw            - switch case of word
+<C-a/x>         - increment/decrement number under cursor
+>> <<           - indent unindent (normal mode)
+>G              - indent from current line until the end of the file
+i_<C-t/d>       - indent/unindent (insert mode)
+=               - autoindent line / visual selection
+gg=G            - autoindent entire file
+=i}             - autoindent text within curly braces
+<leader>ig      - indent guide plugin
+i_<C-h>         - delete back 1 char (insert mode)
+i_<C-w>         - delete back 1 word (insert mode)
+i_<C-u>         - delete back to start of line (insert mode)
+
+********************************************************************************
+Yank and Paste
+********************************************************************************
+yi"             - yank all the text between double quotes "
+yi'             - yank all the text between single quotes '
+yy              - yank a line
+p               - paste after the cursor
+P               - paste before the cursor
+yw              - yank word
+yas             - yank a sentence
+ye              - yank without white-space
+y'a             - yank from here to the line marked with a
+F11             - YankRing plugin (show)
+
+********************************************************************************
+Registers
+********************************************************************************
+"*yw            - yank word to global register (across all programs ie notepad etc)
+"*p             - paste from global register (across all programs ie notepad etc)
+"dyy            - yank current line into register d
+"a5dd           - delete five lines into register a
+"dp             - put the contents of register d after the cursor
+"A5dd           - delete five lines and APPEND into register a (note capital)
+"kyi"           - yank all the text between double quotes " into register k
+ve"kp           - move to the word you want to replace, then paste register k 
+                  from the beginning to the end of the word
+i_<C-r>0        - paste from register 0 while still in insert mode
+
+********************************************************************************
+Visuals
+********************************************************************************
+viw             - visual highlight word
+vitU            - visual highlight inner tag and uppercase
+gUit            - normal mode equivalent of above but works better with (.) repeat
+v               - toggle character-wise visual mode
+V               - visual highlight line
+<C-v>           - visual block mode
+<C-v>I<esc>     - visual block mode then insert for entire column
+gv              - re-highlight previous visual selection
+o               - redefine bounds of visual selection start/finish
+:s/\%V_/ / g    - only match the regex within the visual selection
+
+********************************************************************************
+Buffers
+********************************************************************************
+vim *.txt       - open all txt files into a separate buffer
+:ls             - list all buffers
+%a              - active buffer
++               - modified buffer (hasn't been saved)
+#               - alternate buffer
+h               - hidden buffer
+<C-6>           - quick switch to alternate buffer
+:bn             - go to next buffer
+:bp             - go to previous buffer
+:b#             - go to alternate buffer
+:bn             - go to b (where n is the number)
+:b <tab>        - go to buffer (name completion)
+:bd             - delete current buffer
+:bufdo {cmd}    - execute {cmd} in each file in the buffer list (:ls)
+:wall           - write all files in the buffer list
+
+********************************************************************************
+Args
+********************************************************************************
+alias g='gvim --remote-silent' open everything in 1 vim instance 
+g *.txt         - put all txt files onto the args list
+:args           - show all files in the args list
+:args *.txt     - as above but from inside vim
+:n              - go to next file in the args list
+:wn             - write and move to next file in args list
+
+********************************************************************************
+Windows
+********************************************************************************
+:sp[lit] file     - split the current window horizontally with optional file
+:vsp[lit] file    - split the current window vertically with optional file
+:sp / vsp new     - split with a new file
+:on[ly]           - close all windows except the currently active window
+<C-w>w            - cycle between open windows
+<C-w> h/j/k/l     - (vimrc hack) focus to the window denoted by direction
+<C-w> +           - increase height of current window by 1 line
+<C-w> -           - decrease height of current window by 1 line
+<C-w> =           - make all windows equal size
+<C-w> _           - maximise height of current window
+<C-w> |           - maximise width of current window
+ALT-SHIFT[<>]     - resize vertical windows (vimrc)
+<C-w> r           - rotate all windows
+<C-w> x           - exchange current window with its neighbour
+<C-w> o           - makes this the only window (i.e. use with help)
+                                
+********************************************************************************
+Tabs
+********************************************************************************
+:tabnew f       - open a new empty tab with f - filename
+:tabedit f      - open existing (f)ilename
+:tabc           - close current tab (and all windows within)
+:tabon          - close all other tabs except this one
+gt              - go to next tab
+gT              - go to previous tab
+<C-w> T         - move currently active window into it's own tab
+
+********************************************************************************
+Command-T plugin
+********************************************************************************
+<leader>t       - open file list
+<C-s>           - open selected file in new split window
+<C-v>           - open selected file in vertical split window
+
+********************************************************************************
+FuzzyFinder plugin
+********************************************************************************
+\ff             - fuzzy finder file mode
+\fb             - fuzzy finder buffer mode
+\fd             - fuzzy finder directory mode
+<CR>            - open file in previous window
+<C-j>           - open file in a split window
+<C-k>           - open in a vertical split window
+<C-l>           - open in a new tab
+
+********************************************************************************
+Unimpaired plugin
+********************************************************************************
+[b             - previous buffer
+]b             - next buffer
+[<space>       - insert [count] space above line
+]<space>       - insert [count] space below line
+
+********************************************************************************
+Surround and vim-commentary plugin
+********************************************************************************
+ds"             - delete surrounding "  (surround.vim)
+                  "hello world"  - hello world
+dst             - delete surrounding tag
+                  <div>foo</div>  - foo
+cs])            - change surround ] with ) 
+                 [1234] becomes (1234)
+cs"<br>         - "hello world" - <br>hello world</br>
+csw"            - test - "test"
+v2es"           - highlight 2 words and surround with " (surround.vim)
+                  some words - "some words"
+g <C-g>         - display info on the buffer (character count etc in bytes)
+\\\             - toggle comments on this line (gc) over visual selection
+
+********************************************************************************
+NERDTree Plugin
+********************************************************************************
+o                - open / close node
+O                - recursively open node
+x                - close parent of node
+X                - close all child nodes
+i                - open split
+s                - open vsplit
+
+********************************************************************************
+Abbreviations
+********************************************************************************
+:iabb dm dmac   - when you type dm it will be expanded to dmac
+:abb            - show all abbreviations
+:abclear        - remove all abbreviations
+:unabb dm       - remove this abbreviation
+
+********************************************************************************
+Ex
+********************************************************************************
+Q or :         - enter ex mode
+q:             - open command line window with history
+:edit .        - edit current directory (like NERDTree)
+:3,18d         - delete lines 3 through 18
+:.,$d          - delete from current line to end of file
+:%d            - delete all the lines in a file
+:160,224m23    - move lines 160 through 224 to follow line 23
+:23,29co100    - copy lines 23 through 29 and put after line 100
+:pwd           - print the current working directory
+VG:normal A;   - visual selection from current line to eof, append semicolon
+:%normal A;    - append a semicolon to each line in the file % = whole file
+:<C-r><C-w>    - insert word under the cursor into ex mode
+:shell         - start an interactive shell session
+
+********************************************************************************
+Vimdiff
+********************************************************************************
+:diffsplit fname        - split the window horizontally with fname
+:vert diffsplit fname   - "" vertically
+vimdiff f1 f2 
+vim -d f1 f2
+
+********************************************************************************
+Spaces / Tabs
+********************************************************************************
+\l            - (vimrc hack) shows/hides tabs and eol
+tabstop       - specifies the width of a tab character
+expandtab     - when enabled, causes spaces to be used in place of tab chars
+softtabstop   - when enabled, fine tunes the amount of white space inserted
+shiftwidth    - determines the amount of whitespace to insert/remove indentation
+:g/^$/d       - delete all empty lines
+:retab!       - convert tabs to spaces if (:set expandtab) vice versa if noexpand
+
+********************************************************************************
+Dictionary
+********************************************************************************
+<C-p/n>        - auto word completion
+<C-x><C-]>     - auto word completion from ctags
+set spell      - turn spelling on (set spell spelllang=en_au) optional
+set nospell    - turn it off
+]s             - move to next misspelled word after cursor
+z=             - provide suggestions for word
+<C-x><C-k>     - dictionary provide suggestions for word (insert mode)
+<C-x><C-t>     - thesaurus suggestions (need set thesaurus in vimrc) (insert)
+
+********************************************************************************
+Code Folding
+********************************************************************************
+zfap           - fold a paragraph (zf - followed by a movement command)
+zc             - close fold
+zM             - close all folds
+zo             - open fold
+zR             - open all folds
+
+********************************************************************************
+CTAGS / Help
+********************************************************************************
+:!ctags -R     - run ctags recursively from current directory
+<C-]>          - to jump into a definition / help topic 
+<C-t>          - to jump back to where you searched from
+
+********************************************************************************
+Map keybindings
+********************************************************************************
+:map           - normal, insert, visual and command-line modes
+:imap          - insert mode only
+:cmap          - command-line mode only
+:nmap          - normal mode only
+:vmap          - visual mode only
+:map x seq     - define char x as a sequence of editing commands
+
+********************************************************************************
+Undo
+********************************************************************************
+u              - undo last change
+U              - undo all latest changes on one line
+<C-r>          - redo one change which was undone
+g-             - go to older text state (undo branch)
+g+             - go to newer text state (undo branch)
+:earlier 20s   - go to older text state about 20 seconds before (s,m,h,d)
+
+********************************************************************************
+Vimperator
+********************************************************************************
+copy/paste    - begin search '/' enter caret mode 'i', 'v', then 'y'
