@@ -130,6 +130,16 @@ nnoremap <silent> <F11> :YRShow<CR>
 " F6 to change to solarized and toggle dark or light
 call togglebg#map("<F6>")
 
+function! s:DayOrNight()
+  " Launch vim with light background during the day and dark at night (5 refers to 5AM and 17 to 5PM).
+  if strftime("%H") >= 5 && strftime("%H") < 17
+    set background=light
+  else
+    set background=dark
+  endif
+  colorscheme solarized
+endfunction
+
 "-------------------------------------------------------------------------------
 " Autocommands
 "-------------------------------------------------------------------------------
@@ -139,6 +149,9 @@ if has("autocmd")
   autocmd BufRead,BufNewFile *.rpa set filetype=pascal
   autocmd BufRead,BufNewFile *.json set filetype=javascript
   autocmd BufRead,BufNewFile *.vssettings,*.fpage,*.config set filetype=xml
+  autocmd BufRead,BufNewFile *.vssettings,*.fpage,*.config set filetype=xml
+  call s:DayOrNight()
+  autocmd BufWritePost * call s:DayOrNight()
   " Remove trailing whitespaces
   fun! <SID>StripTrailingWhitespaces()
       let l = line(".")
@@ -163,7 +176,6 @@ if has("gui_running")
   syntax on           "syntax highlighting enabled
   set guioptions-=m   "no menu
   set guioptions-=T   "no toolbar
-  set background=dark
   colorscheme solarized
 endif
 
@@ -202,7 +214,6 @@ if version < 730
       endif
   endfunction
 endif
-
 
 " Delete buffer while keeping window layout (don't close buffer's windows).
 " Solves NERDTree navigation window full screening when using 'bd',
