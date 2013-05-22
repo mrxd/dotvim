@@ -22,9 +22,6 @@
 [submodule "bundle/nerdtree"]
 	path = bundle/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "bundle/Command-t"]
-	path = bundle/Command-t
-	url = https://github.com/wincent/Command-T.git
 [submodule "bundle/vim-commentary"]
 	path = bundle/vim-commentary
 	url = http://github.com/tpope/vim-commentary
