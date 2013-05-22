@@ -112,10 +112,10 @@ map <leader>dc :NERDTree c:\\<CR>
 map <leader>dh :NERDTree h:\\<CR>
 
 "-------------------------------------------------------------------------------
-" Command-T plugin: https://github.com/wincent/Command-T
+" CtrlP plugin: https://github.com/kien/ctrlp.vim.git
 "-------------------------------------------------------------------------------
-map <leader>t :CommandT<CR>
-map <leader>tb :CommandTBuffer<CR>
+map <leader>t :CtrlP getcwd()<CR>
+map <leader>tb :CtrlPBuffer<CR>
 map <leader>tf :CommandTFlush<CR>
 
 "-------------------------------------------------------------------------------
@@ -151,7 +151,6 @@ if has("autocmd")
   autocmd BufRead,BufNewFile *.vssettings,*.fpage,*.config set filetype=xml
   autocmd BufRead,BufNewFile *.vssettings,*.fpage,*.config set filetype=xml
   call s:DayOrNight()
-  autocmd BufWritePost * call s:DayOrNight()
   " Remove trailing whitespaces
   fun! <SID>StripTrailingWhitespaces()
       let l = line(".")
