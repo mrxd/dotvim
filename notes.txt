@@ -140,7 +140,7 @@ i_<C-r>0        - paste from register 0 while still in insert mode
 Visuals
 ********************************************************************************
 viw             - visual highlight word
-vitU            - visual highlight inner tag and uppercase
+vitU            - visual highlight inner tag and upper-case
 gUit            - normal mode equivalent of above but works better with (.) repeat
 v               - toggle character-wise visual mode
 V               - visual highlight line
@@ -208,24 +208,6 @@ Tabs
 gt              - go to next tab
 gT              - go to previous tab
 <C-w> T         - move currently active window into it's own tab
-
-********************************************************************************
-Command-T plugin
-********************************************************************************
-<leader>t       - open file list
-<C-s>           - open selected file in new split window
-<C-v>           - open selected file in vertical split window
-
-********************************************************************************
-FuzzyFinder plugin
-********************************************************************************
-\ff             - fuzzy finder file mode
-\fb             - fuzzy finder buffer mode
-\fd             - fuzzy finder directory mode
-<CR>            - open file in previous window
-<C-j>           - open file in a split window
-<C-k>           - open in a vertical split window
-<C-l>           - open in a new tab
 
 ********************************************************************************
 Unimpaired plugin
@@ -297,7 +279,7 @@ vim -d f1 f2
 ********************************************************************************
 Spaces / Tabs
 ********************************************************************************
-\l            - (vimrc hack) shows/hides tabs and eol
+,l            - (vimrc hack) shows/hides tabs and eol
 tabstop       - specifies the width of a tab character
 expandtab     - when enabled, causes spaces to be used in place of tab chars
 softtabstop   - when enabled, fine tunes the amount of white space inserted

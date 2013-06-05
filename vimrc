@@ -3,8 +3,8 @@
 "---------------------------------------------------------------------------------------------------
 
 runtime bundle/vim-pathogen/autoload/pathogen.vim "load the pathogen plugin
-silent! execute pathogen#infect()                    "run pathogen
-silent! execute pathogen#helptags()                  "generate help files
+silent! execute pathogen#infect()                 "run pathogen
+silent! execute pathogen#helptags()               "generate help files
 set nocompatible                                  "make Vim behave more like Vim than Vi
 filetype plugin indent on                         "enable file detection, plugins and indenting
 set statusline=%f%m%r%h%w\        "file path, modified, readonly, help and window flags
@@ -42,9 +42,9 @@ set backspace=indent,eol,start    "make backspace work over line breaks etc.
 set wildmode=longest,list,full    "if more than 1 match list all & complete to longest string
 set wildmenu                      "enable enhanced command-line completion
 set wildignore+=.hg,.git,.svn     "version control
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   "binary images
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest "compiled object files
-set wildignore+=_ReSharper.*/**,build/**         "ancillary directories
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg          "binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.zip,*.manifest  "compiled object files
+set wildignore+=_ReSharper.*/**,build/**                "ancillary directories
 
 "-------------------------------------------------------------------------------
 " Key mappings
@@ -114,9 +114,10 @@ map <leader>dh :NERDTree h:\\<CR>
 "-------------------------------------------------------------------------------
 " CtrlP plugin: https://github.com/kien/ctrlp.vim.git
 "-------------------------------------------------------------------------------
+let g:ctrlp_use_caching = 1
 map <leader>t :CtrlP getcwd()<CR>
 map <leader>tb :CtrlPBuffer<CR>
-map <leader>tf :CommandTFlush<CR>
+map <leader>tf :CtrlPClearCache<CR>
 
 "-------------------------------------------------------------------------------
 " YankRing plugin: https://github.com/vim-scripts/YankRing.vim
@@ -130,15 +131,21 @@ nnoremap <silent> <F11> :YRShow<CR>
 " F6 to change to solarized and toggle dark or light
 call togglebg#map("<F6>")
 
-function! s:DayOrNight()
-  " Launch vim with light background during the day and dark at night (5 refers to 5AM and 17 to 5PM).
-  if strftime("%H") >= 5 && strftime("%H") < 17
-    set background=light
+function! OpenURL(url)
+  if has("win32")
+    exe "!start cmd /cstart /b ".a:url.""
+  elseif $DISPLAY !~ '^\w'
+    exe "silent !sensible-browser \"".a:url."\""
   else
-    set background=dark
+    exe "silent !sensible-browser -T \"".a:url."\""
   endif
-  colorscheme solarized
+  redraw!
 endfunction
+command! -nargs=1 OpenURL :call OpenURL(<q-args>)
+" open URL under cursor in browser
+nnoremap gb :OpenURL <cfile><CR>
+nnoremap gG :OpenURL http://www.google.com/search?q=<cword><CR>
+nnoremap gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><CR>
 
 "-------------------------------------------------------------------------------
 " Autocommands
@@ -150,7 +157,6 @@ if has("autocmd")
   autocmd BufRead,BufNewFile *.json set filetype=javascript
   autocmd BufRead,BufNewFile *.vssettings,*.fpage,*.config set filetype=xml
   autocmd BufRead,BufNewFile *.vssettings,*.fpage,*.config set filetype=xml
-  call s:DayOrNight()
   " Remove trailing whitespaces
   fun! <SID>StripTrailingWhitespaces()
       let l = line(".")
@@ -175,6 +181,7 @@ if has("gui_running")
   syntax on           "syntax highlighting enabled
   set guioptions-=m   "no menu
   set guioptions-=T   "no toolbar
+  set background=dark
   colorscheme solarized
 endif
 
@@ -213,78 +220,3 @@ if version < 730
       endif
   endfunction
 endif
-
-" Delete buffer while keeping window layout (don't close buffer's windows).
-" Solves NERDTree navigation window full screening when using 'bd',
-" use <leader>bd instead to delete buffer
-" Version 2008-11-18 from http://vim.wikia.com/wiki/VimTip165
-if v:version < 700 || exists('loaded_bclose') || &cp
-  finish
-endif
-let loaded_bclose = 1
-if !exists('bclose_multiple')
-  let bclose_multiple = 1
-endif
-
-" Display an error message.
-function! s:Warn(msg)
-  echohl ErrorMsg
-  echomsg a:msg
-  echohl NONE
-endfunction
-
-" Command ':Bclose' executes ':bd' to delete buffer in current window.
-" The window will show the alternate buffer (Ctrl-^) if it exists,
-" or the previous buffer (:bp), or a blank buffer if no previous.
-" Command ':Bclose!' is the same, but executes ':bd!' (discard changes).
-" An optional argument can specify which buffer to close (name or number).
-function! s:Bclose(bang, buffer)
-  if empty(a:buffer)
-    let btarget = bufnr('%')
-  elseif a:buffer =~ '^\d\+$'
-    let btarget = bufnr(str2nr(a:buffer))
-  else
-    let btarget = bufnr(a:buffer)
-  endif
-  if btarget < 0
-    call s:Warn('No matching buffer for '.a:buffer)
-    return
-  endif
-  if empty(a:bang) && getbufvar(btarget, '&modified')
-    call s:Warn('No write since last change for buffer '.btarget.' (use :Bclose!)')
-    return
-  endif
-  " Numbers of windows that view target buffer which we will delete.
-  let wnums = filter(range(1, winnr('$')), 'winbufnr(v:val) == btarget')
-  if !g:bclose_multiple && len(wnums) > 1
-    call s:Warn('Buffer is in multiple windows (use ":let bclose_multiple=1")')
-    return
-  endif
-  let wcurrent = winnr()
-  for w in wnums
-    execute w.'wincmd w'
-    let prevbuf = bufnr('#')
-    if prevbuf > 0 && buflisted(prevbuf) && prevbuf != w
-      buffer #
-    else
-      bprevious
-    endif
-    if btarget == bufnr('%')
-      " Numbers of listed buffers which are not the target to be deleted.
-      let blisted = filter(range(1, bufnr('$')), 'buflisted(v:val) && v:val != btarget')
-      " Listed, not target, and not displayed.
-      let bhidden = filter(copy(blisted), 'bufwinnr(v:val) < 0')
-      " Take the first buffer, if any (could be more intelligent).
-      let bjump = (bhidden + blisted + [-1])[0]
-      if bjump > 0
-        execute 'buffer '.bjump
-      else
-        execute 'enew'.a:bang
-      endif
-    endif
-  endfor
-  execute 'bdelete'.a:bang.' '.btarget
-  execute wcurrent.'wincmd w'
-endfunction
-command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose('<bang>', '<args>')
-nnoremap <silent> <Leader>bd :Bclose<CR>
