@@ -120,14 +120,6 @@ map <leader>tb :CtrlPBuffer<CR>
 map <leader>tf :CtrlPClearCache<CR>
 
 "-------------------------------------------------------------------------------
-" neocomplcache plugin: https://github.com/Shougo/neocomplcache.vim 
-"-------------------------------------------------------------------------------
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_min_syntax_length = 3
-
-"-------------------------------------------------------------------------------
 " YankRing plugin: https://github.com/vim-scripts/YankRing.vim
 "-------------------------------------------------------------------------------
 " F11 displays the contents of the yankring
@@ -165,10 +157,6 @@ if has("autocmd")
   autocmd BufRead,BufNewFile *.json set filetype=javascript
   autocmd BufRead,BufNewFile *.vssettings,*.fpage,*.config set filetype=xml
   autocmd BufRead,BufNewFile *.vssettings,*.fpage,*.config set filetype=xml
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
   " Remove trailing whitespaces
   fun! <SID>StripTrailingWhitespaces()
       let l = line(".")
