@@ -155,8 +155,7 @@ if has("autocmd")
   " Force filetypes for unknown extensions
   autocmd BufRead,BufNewFile *.rpa set filetype=pascal
   autocmd BufRead,BufNewFile *.json set filetype=javascript
-  autocmd BufRead,BufNewFile *.vssettings,*.fpage,*.config set filetype=xml
-  autocmd BufRead,BufNewFile *.vssettings,*.fpage,*.config set filetype=xml
+  autocmd BufRead,BufNewFile *.vssettings set filetype=xml
   " Remove trailing whitespaces
   fun! <SID>StripTrailingWhitespaces()
       let l = line(".")

@@ -103,7 +103,6 @@ i_<C-t/d>       - indent/unindent (insert mode)
 =               - autoindent line / visual selection
 gg=G            - autoindent entire file
 =i}             - autoindent text within curly braces
-<leader>ig      - indent guide plugin
 i_<C-h>         - delete back 1 char (insert mode)
 i_<C-w>         - delete back 1 word (insert mode)
 i_<C-u>         - delete back to start of line (insert mode)
