@@ -156,6 +156,7 @@ if has("autocmd")
   autocmd BufRead,BufNewFile *.rpa set filetype=pascal
   autocmd BufRead,BufNewFile *.json set filetype=javascript
   autocmd BufRead,BufNewFile *.vssettings set filetype=xml
+  autocmd BufRead,BufNewFile *.cshtml set filetype=html
   " Remove trailing whitespaces
   fun! <SID>StripTrailingWhitespaces()
       let l = line(".")
