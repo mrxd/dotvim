@@ -42,7 +42,7 @@ n|              - column n of current line
 Search
 ********************************************************************************
 fx              - move forward to the first occurrence of x (current line)
-Fx              - same as above but backwards 
+Fx              - same as above but backwards
 tx              - same as 'f' but to the character just before x
 Tx              - same as above but backwards
 ;               - repeat previous find in same direction
@@ -131,7 +131,7 @@ Registers
 "dp             - put the contents of register d after the cursor
 "A5dd           - delete five lines and APPEND into register a (note capital)
 "kyi"           - yank all the text between double quotes " into register k
-ve"kp           - move to the word you want to replace, then paste register k 
+ve"kp           - move to the word you want to replace, then paste register k
                   from the beginning to the end of the word
 i_<C-r>0        - paste from register 0 while still in insert mode
 
@@ -171,7 +171,7 @@ h               - hidden buffer
 ********************************************************************************
 Args
 ********************************************************************************
-alias g='gvim --remote-silent' open everything in 1 vim instance 
+alias g='gvim --remote-silent' open everything in 1 vim instance
 g *.txt         - put all txt files onto the args list
 :args           - show all files in the args list
 :args *.txt     - as above but from inside vim
@@ -196,7 +196,7 @@ ALT-SHIFT[<>]     - resize vertical windows (vimrc)
 <C-w> r           - rotate all windows
 <C-w> x           - exchange current window with its neighbour
 <C-w> o           - makes this the only window (i.e. use with help)
-                                
+
 ********************************************************************************
 Tabs
 ********************************************************************************
@@ -223,7 +223,7 @@ ds"             - delete surrounding "  (surround.vim)
                   "hello world"  - hello world
 dst             - delete surrounding tag
                   <div>foo</div>  - foo
-cs])            - change surround ] with ) 
+cs])            - change surround ] with )
                  [1234] becomes (1234)
 cs"<br>         - "hello world" - <br>hello world</br>
 csw"            - test - "test"
@@ -272,7 +272,7 @@ Vimdiff
 ********************************************************************************
 :diffsplit fname        - split the window horizontally with fname
 :vert diffsplit fname   - "" vertically
-vimdiff f1 f2 
+vimdiff f1 f2
 vim -d f1 f2
 
 ********************************************************************************
@@ -311,7 +311,7 @@ zR             - open all folds
 CTAGS / Help
 ********************************************************************************
 :!ctags -R     - run ctags recursively from current directory
-<C-]>          - to jump into a definition / help topic 
+<C-]>          - to jump into a definition / help topic
 <C-t>          - to jump back to where you searched from
 
 ********************************************************************************

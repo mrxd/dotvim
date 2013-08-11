@@ -7,12 +7,12 @@ silent! execute pathogen#infect()                 "run pathogen
 silent! execute pathogen#helptags()               "generate help files
 set nocompatible                                  "make Vim behave more like Vim than Vi
 filetype plugin indent on                         "enable file detection, plugins and indenting
-set statusline=%f%m%r%h%w\        "file path, modified, readonly, help and window flags
-set statusline+=[Format:%{&ff}]\  "file format (unix/dos) etc.
-set statusline+=[Type:%Y]\        "file type (VIM,JAVASCRIPT) etc.
-set statusline+=[Line:%l/%L\      "line number and number of lines
-set statusline+=%p%%,\ Col:%c]\   "percentage through file and column number
-set statusline+=[Buf:%n]\         "buffer number
+" set statusline=%f%m%r%h%w\        "file path, modified, readonly, help and window flags
+" set statusline+=[Format:%{&ff}]\  "file format (unix/dos) etc.
+" set statusline+=[Type:%Y]\        "file type (VIM,JAVASCRIPT) etc.
+" set statusline+=[Line:%l/%L\      "line number and number of lines
+" set statusline+=%p%%,\ Col:%c]\   "percentage through file and column number
+" set statusline+=[Buf:%n]\         "buffer number
 set number                        "turn on line numbers
 set showcmd                       "show partial command in the lower right of the screen
 set showmatch                     "show matching brackets
@@ -77,6 +77,19 @@ nnoremap k gk
 " cycle through buffers with CTRL+left/right arrow key
 map <C-left> <ESC>:bp<CR>
 map <C-right> <ESC>:bn<CR>
+
+"-------------------------------------------------------------------------------
+" vim-airline plugin: http://github.com/bling/vim-airline
+"-------------------------------------------------------------------------------
+let g:airline_theme='solarized'
+let g:airline_powerline_fonts=1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_branch_prefix = ' '
+let g:airline_readonly_symbol = ''
+let g:airline_linecolumn_prefix = ' '
 
 "-------------------------------------------------------------------------------
 " Unimpaired plugin: http://github.com/tpope/vim-unimpaired
@@ -164,7 +177,7 @@ if has("autocmd")
       %s/\s\+$//e
       call cursor(l, c)
   endfun
-  autocmd BufWritePre *.c,*.rb,*.java,*.js,*.cs :call <SID>StripTrailingWhitespaces()
+  autocmd BufWritePre *.c,*.rb,*.java,*.js,*.cs,*.cshtml,*.txt :call <SID>StripTrailingWhitespaces()
   "highlight the entire line containing the cursor when in insert mode
   if v:version >= 700
     autocmd InsertEnter * set cursorline
@@ -174,7 +187,7 @@ endif
 
 if has("gui_running")
   if has("win32") || has("win64")
-    set guifont=DejaVu_Sans_Mono:h11:cANSI
+    set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
   elseif has("unix")
     set guifont=DejaVu_Sans_Mono\ 12
   endif

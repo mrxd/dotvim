@@ -40,3 +40,9 @@
 [submodule "bundle/bufkill"]
 	path = bundle/bufkill
 	url = http://github.com/mrxd/bufkill.vim.git
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = http://github.com/bling/vim-airline.git
+[submodule "bundle/vim-bufferline"]
+	path = bundle/vim-bufferline
+	url = http://github.com/bling/vim-bufferline.git
