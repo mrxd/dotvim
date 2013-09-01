@@ -1,5 +1,6 @@
 "---------------------------------------------------------------------------------------------------
 " Dan's vimrc
+"
 "---------------------------------------------------------------------------------------------------
 
 runtime bundle/vim-pathogen/autoload/pathogen.vim "load the pathogen plugin
@@ -7,12 +8,6 @@ silent! execute pathogen#infect()                 "run pathogen
 silent! execute pathogen#helptags()               "generate help files
 set nocompatible                                  "make Vim behave more like Vim than Vi
 filetype plugin indent on                         "enable file detection, plugins and indenting
-" set statusline=%f%m%r%h%w\        "file path, modified, readonly, help and window flags
-" set statusline+=[Format:%{&ff}]\  "file format (unix/dos) etc.
-" set statusline+=[Type:%Y]\        "file type (VIM,JAVASCRIPT) etc.
-" set statusline+=[Line:%l/%L\      "line number and number of lines
-" set statusline+=%p%%,\ Col:%c]\   "percentage through file and column number
-" set statusline+=[Buf:%n]\         "buffer number
 set number                        "turn on line numbers
 set showcmd                       "show partial command in the lower right of the screen
 set showmatch                     "show matching brackets
@@ -60,7 +55,7 @@ cmap w!! %!sudo tee > /dev/null %
 ",l toggles eol - tab character visibility
 nmap <leader>l :set list!<CR>
 "quick edit of vimrc
-nnoremap <leader>ev :e $HOME/vimfiles/vimrc<cr>
+nnoremap <leader>ev :e c:/Vim/vimfiles/vimrc<cr>
 " <Ctrl-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 "use very magic regex, see :h magic
@@ -177,7 +172,7 @@ if has("autocmd")
       %s/\s\+$//e
       call cursor(l, c)
   endfun
-  autocmd BufWritePre *.c,*.rb,*.java,*.js,*.cs,*.cshtml,*.txt :call <SID>StripTrailingWhitespaces()
+  autocmd BufWritePre *.c,*.rb,*.java,*.js,*.cs,*.cshtml,*.txt,*.sql :call <SID>StripTrailingWhitespaces()
   "highlight the entire line containing the cursor when in insert mode
   if v:version >= 700
     autocmd InsertEnter * set cursorline
@@ -204,9 +199,9 @@ if has("vms")
 else
   set undofile
   set undoreload=10000
-  set undodir=$HOME/.vim/tmp/undo//
-  set backupdir=$HOME/.vim/tmp/backup//
-  set directory=$HOME/.vim/tmp/swap//
+  set undodir=c:/Temp/vim/undo//
+  set backupdir=c:/Temp/vim/backup//
+  set directory=c:/Temp/vim/swap//
   set backupext=.bak
   set backup
 endif
