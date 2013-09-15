@@ -8,38 +8,38 @@ silent! execute pathogen#infect()                 "run pathogen
 silent! execute pathogen#helptags()               "generate help files
 set nocompatible                                  "make Vim behave more like Vim than Vi
 filetype plugin indent on                         "enable file detection, plugins and indenting
-set number                        "turn on line numbers
-set showcmd                       "show partial command in the lower right of the screen
-set showmatch                     "show matching brackets
-set splitbelow                    "split windows at the bottom of the screen
-set laststatus=2                  "show the statusline as the 2nd-last line in the editor window
-set ttyfast                       "assume a fast terminal connection
-set lazyredraw                    "don't redraw the screen when executing macros, to force use :redraw
-set hidden                        "hide buffers when abandoned rather than unload them
-set hlsearch                      "highlight all search matches
-set incsearch                     "incrementally highlight all matches as the pattern is typed
-set ignorecase                    "case insensitive search
-set smartcase                     "case insensitive search unless >=1 search chars is uppercase
-set tabstop=2                     "the width of a <Tab> character (in spaces)
-set expandtab                     "when the <Tab> key is hit insert spaces instead
-set smartindent                   "indents are automatically inserted
-set softtabstop=2                 "number of spaces to insert when using <Tab>
-set shiftwidth=2                  "number of spaces to insert/delete for each indent (i.e. >>, << )
-set spelllang=en_au               "use en_au for spell checking when enabled
-set nrformats=                    "treat all numerals as decimal regardless of zero padding (ctrl-a/x)
-set dict+=$HOME/words.txt         "file name for dictionary completion
-set complete+=k                   "add dictionary file to auto complete (CTRL-N)
-set thesaurus+=$HOME/mthesaur.txt "file name for thesaurus completion
-set cpoptions+=$                  "when changing a line show '$' at the end rather than clearing it
-set history=1000                  "keep the last n commands in history
-set autoread                      "automatically read files if changed outside of vim
-set backspace=indent,eol,start    "make backspace work over line breaks etc.
-set wildmode=longest,list,full    "if more than 1 match list all & complete to longest string
-set wildmenu                      "enable enhanced command-line completion
-set wildignore+=.hg,.git,.svn     "version control
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg          "binary images
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.zip,*.manifest  "compiled object files
-set wildignore+=_ReSharper.*/**,build/**                "ancillary directories
+set number                                        "turn on line numbers
+set showcmd                                       "show partial command in the lower right of the screen
+set showmatch                                     "show matching brackets
+set splitbelow                                    "split windows at the bottom of the screen
+set laststatus=2                                  "show the statusline as the 2nd-last line in the editor window
+set ttyfast                                       "assume a fast terminal connection
+set lazyredraw                                    "don't redraw the screen when executing macros, to force use :redraw
+set hidden                                        "hide buffers when abandoned rather than unload them
+set hlsearch                                      "highlight all search matches
+set incsearch                                     "incrementally highlight all matches as the pattern is typed
+set ignorecase                                    "case insensitive search
+set smartcase                                     "case insensitive search unless >=1 search chars is uppercase
+set tabstop=2                                     "the width of a <Tab> character (in spaces)
+set expandtab                                     "when the <Tab> key is hit insert spaces instead
+set smartindent                                   "indents are automatically inserted
+set softtabstop=2                                 "number of spaces to insert when using <Tab>
+set shiftwidth=2                                  "number of spaces to insert/delete for each indent (i.e. >>, << )
+set spelllang=en_au                               "use en_au for spell checking when enabled
+set nrformats=                                    "treat all numerals as decimal regardless of zero padding (ctrl-a/x)
+set dict+=$HOME/words.txt                         "file name for dictionary completion
+set complete+=k                                   "add dictionary file to auto complete (CTRL-N)
+set thesaurus+=$HOME/mthesaur.txt                 "file name for thesaurus completion
+set cpoptions+=$                                  "when changing a line show '$' at the end rather than clearing it
+set history=1000                                  "keep the last n commands in history
+set autoread                                      "automatically read files if changed outside of vim
+set backspace=indent,eol,start                    "make backspace work over line breaks etc.
+set wildmode=longest,list,full                    "if more than 1 match list all & complete to longest string
+set wildmenu                                      "enable enhanced command-line completion
+set wildignore+=.hg,.git,.svn                     "version control
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg    "binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.zip       "compiled object files
+set wildignore+=*.manifest,_ReSharper.*/**
 
 "-------------------------------------------------------------------------------
 " Key mappings
@@ -85,6 +85,13 @@ let g:airline_right_alt_sep = ''
 let g:airline_branch_prefix = ' '
 let g:airline_readonly_symbol = ''
 let g:airline_linecolumn_prefix = ' '
+
+"-------------------------------------------------------------------------------
+" vim-bufferline plugin: http://github.com/bling/vim-bufferline
+"-------------------------------------------------------------------------------
+let g:bufferline_active_buffer_left = '['
+let g:bufferline_active_buffer_right = ']'
+let g:bufferline_modified = '+'
 
 "-------------------------------------------------------------------------------
 " Unimpaired plugin: http://github.com/tpope/vim-unimpaired
@@ -199,15 +206,20 @@ if has("vms")
 else
   set undofile
   set undoreload=10000
-  set undodir=c:/Temp/vim/undo//
-  set backupdir=c:/Temp/vim/backup//
-  set directory=c:/Temp/vim/swap//
   set backupext=.bak
   set backup
 endif
 
+" Set windows / unix specific options
 if has("win32") || has("win64")
   let g:ruby_path = ':C:\ruby\bin'
+  set undodir=c:/Temp/vim/undo/
+  set backupdir=c:/Temp/vim/backup/
+  set directory=c:/Temp/vim/swap/
+elseif has("unix")
+  set undodir=$HOME/.vim/tmp/undo/
+  set backupdir=$HOME/.vim/tmp/backup/
+  set directory=$HOME/.vim/tmp/swap/
 endif
 
 if has("multi_byte")
