@@ -43,3 +43,6 @@
 [submodule "bundle/vim-airline"]
 	path = bundle/vim-airline
 	url = http://github.com/bling/vim-airline.git
+[submodule "bundle/csv.vim"]
+	path = bundle/csv.vim
+	url = http://github.com/chrisbra/csv.vim.git
