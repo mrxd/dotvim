@@ -194,7 +194,7 @@ endif
 
 if has("gui_running")
   if has("win32") || has("win64")
-    set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10
   elseif has("unix")
     set guifont=DejaVu_Sans_Mono\ 12
   endif
