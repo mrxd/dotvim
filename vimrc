@@ -57,7 +57,9 @@ nmap <leader>l :set list!<CR>
 "quick edit of vimrc
 nnoremap <leader>ev :e c:/Vim/vimfiles/vimrc<cr>
 " <Ctrl-l> redraws the screen and removes any search highlighting.
-nnoremap <silent> <C-l> :nohl<CR><C-l>
+"nnoremap <silent> <C-l> :nohl<CR><C-l>
+" Hit return to turn search highlighting off
+nnoremap <CR> :nohlsearch<CR><CR>
 "use very magic regex, see :h magic
 nnoremap / /\v
 vnoremap / /\v
@@ -236,12 +238,14 @@ endif
 if version < 730
   set colorcolumn=120 " Show a coloured column close to the maximum text width
   ",r toggles relative line numbering
-  map <leader>r :call ToggleRNU()<CR>
+  nnoremap <leader>r :call ToggleRNU()<CR>
   function! ToggleRNU()
-      if (&rnu == 0)
-        set rnu
-      else
-        set nu
-      endif
+    if(&relativenumber == 1)
+      set norelativenumber
+      set number
+    else
+      set nonumber
+      set relativenumber
+    endif
   endfunction
 endif
