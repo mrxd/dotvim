@@ -154,7 +154,7 @@ nnoremap <silent> <F11> :YRShow<CR>
 call togglebg#map("<F6>")
 
 function! OpenURL(url)
-  if has("win32")
+  if has("win32") || has("win64")
     exe "!start cmd /cstart /b ".a:url.""
   elseif $DISPLAY !~ '^\w'
     exe "silent !sensible-browser \"".a:url."\""
