@@ -33,6 +33,7 @@ set thesaurus+=$HOME/mthesaur.txt                 "file name for thesaurus compl
 set cpoptions+=$                                  "when changing a line show '$' at the end rather than clearing it
 set history=1000                                  "keep the last n commands in history
 set autoread                                      "automatically read files if changed outside of vim
+set autoindent                                    "copy indent from current line when starting a new line
 set backspace=indent,eol,start                    "make backspace work over line breaks etc.
 set wildmode=longest,list,full                    "if more than 1 match list all & complete to longest string
 set wildmenu                                      "enable enhanced command-line completion
@@ -56,10 +57,12 @@ cmap w!! %!sudo tee > /dev/null %
 nmap <leader>l :set list!<CR>
 "quick edit of vimrc
 nnoremap <leader>ev :e c:/Vim/vimfiles/vimrc<cr>
-" <Ctrl-l> redraws the screen and removes any search highlighting.
-"nnoremap <silent> <C-l> :nohl<CR><C-l>
 " Hit return to turn search highlighting off
 nnoremap <CR> :nohlsearch<CR><CR>
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+endif
 "use very magic regex, see :h magic
 nnoremap / /\v
 vnoremap / /\v
