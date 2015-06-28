@@ -106,7 +106,7 @@ gg=G            - autoindent entire file
 i_<C-h>         - delete back 1 char (insert mode)
 i_<C-w>         - delete back 1 word (insert mode)
 i_<C-u>         - delete back to start of line (insert mode)
-
+aaa "else"  sdfgsdfgjl          ome
 ********************************************************************************
 Yank and Paste
 ********************************************************************************

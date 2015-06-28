@@ -184,7 +184,7 @@ if has("autocmd")
   " Force filetypes for unknown extensions
   autocmd BufRead,BufNewFile *.rpa set filetype=pascal
   autocmd BufRead,BufNewFile *.json set filetype=javascript
-  autocmd BufRead,BufNewFile *.vssettings set filetype=xml
+  autocmd BufRead,BufNewFile *.vssettings,*.vstemplate set filetype=xml
   autocmd BufRead,BufNewFile *.cshtml set filetype=html
   " Remove trailing whitespaces
   fun! <SID>StripTrailingWhitespaces()
