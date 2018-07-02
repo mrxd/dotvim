@@ -55,8 +55,6 @@ imap jj <Esc>
 cmap w!! %!sudo tee > /dev/null %
 ",l toggles eol - tab character visibility
 nmap <leader>l :set list!<CR>
-"quick edit of vimrc
-nnoremap <leader>ev :e c:/Vim/vimfiles/vimrc<cr>
 " Hit return to turn search highlighting off
 nnoremap <CR> :nohlsearch<CR><CR>
 " Use <C-L> to clear the highlighting of :set hlsearch.
@@ -123,11 +121,7 @@ vmap <C-Down> ]egv
 " ,s toggles the scratch plugin
 map <leader>s :call ToggleScratch()<CR>
 function! ToggleScratch()
-  if expand('%') == g:ScratchBufferName
-    quit
-  else
-    Sscratch
-  endif
+  :Scratch
 endfunction
 
 "-------------------------------------------------------------------------------
@@ -139,20 +133,6 @@ map <leader>d :execute 'NERDTreeToggle ' . getcwd()<CR>
 map <leader>dc :NERDTree c:\\<CR>
 " ,dh opens NerdTree with h:\ as root
 map <leader>dh :NERDTree h:\\<CR>
-
-"-------------------------------------------------------------------------------
-" CtrlP plugin: https://github.com/kien/ctrlp.vim.git
-"-------------------------------------------------------------------------------
-let g:ctrlp_use_caching = 1
-map <leader>t :CtrlP getcwd()<CR>
-map <leader>tb :CtrlPBuffer<CR>
-map <leader>tf :CtrlPClearCache<CR>
-
-"-------------------------------------------------------------------------------
-" YankRing plugin: https://github.com/vim-scripts/YankRing.vim
-"-------------------------------------------------------------------------------
-" F11 displays the contents of the yankring
-nnoremap <silent> <F11> :YRShow<CR>
 
 "-------------------------------------------------------------------------------
 " Solarized colorscheme: http://github.com/altercation/vim-colors-solarized
@@ -230,10 +210,12 @@ if has("win32") || has("win64")
   set undodir=c:/Temp/vim/undo/
   set backupdir=c:/Temp/vim/backup/
   set directory=c:/Temp/vim/swap/
+  nnoremap <leader>ev :e c:/Vim/vimfiles/vimrc<cr>
 elseif has("unix")
   set undodir=$HOME/.vim/tmp/undo/
   set backupdir=$HOME/.vim/tmp/backup/
   set directory=$HOME/.vim/tmp/swap/
+  nnoremap <leader>ev :e $HOME/.vim/vimrc<cr>
 endif
 
 if has("multi_byte")
@@ -242,7 +224,7 @@ if has("multi_byte")
 endif
 
 " Set some Vim 7.3 introduced options
-if version < 730
+if version > 730
   set colorcolumn=120 " Show a coloured column close to the maximum text width
   ",r toggles relative line numbering
   nnoremap <leader>r :call ToggleRNU()<CR>
