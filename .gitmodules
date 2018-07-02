@@ -31,6 +31,3 @@
 [submodule "bundle/vim-airline-themes"]
 	path = bundle/vim-airline-themes
 	url = http://github.com/vim-airline/vim-airline-themes
-[submodule "bundle/omnisharp-vim"]
-	path = bundle/omnisharp-vim
-	url = https://github.com/OmniSharp/omnisharp-vim
