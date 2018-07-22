@@ -125,6 +125,11 @@ function! ToggleScratch()
 endfunction
 
 "-------------------------------------------------------------------------------
+" VIMWIKI plugin: https://github.com/vimwiki/vimwiki.vim
+"-------------------------------------------------------------------------------
+let g:vimwiki_list = [{'path': '$GDRIVE\vimwiki\'}]
+
+"-------------------------------------------------------------------------------
 " NERDTree plugin: https://github.com/scrooloose/nerdtree
 "-------------------------------------------------------------------------------
 " ,d toggles the nerd tree plugin
